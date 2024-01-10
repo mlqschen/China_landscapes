@@ -1,0 +1,423 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css">
+        <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <link rel="stylesheet" href="css/leaflet-search.css">
+        <link rel="stylesheet" href="css/leaflet-control-geocoder.Geocoder.css">
+        <link rel="stylesheet" href="css/leaflet-measure.css">
+        <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="js/leaflet-control-geocoder.Geocoder.js"></script>
+        <script src="js/leaflet-measure.js"></script>
+        <script src="js/leaflet-search.js"></script>
+        <script src="data/ChinaProvince_1.js"></script>
+        <script src="data/CHINA_boundary_2.js"></script>
+        <script src="data/China_landscapes_3.js"></script>
+        <script>
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:1
+        }).fitBounds([[17.833220658718403,73.7110989075],[54.000174171281586,130.28910539250003]]);
+        var hash = new L.Hash(map);
+        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
+        var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
+        var measureControl = new L.Control.Measure({
+            position: 'topleft',
+            primaryLengthUnit: 'meters',
+            secondaryLengthUnit: 'kilometers',
+            primaryAreaUnit: 'sqmeters',
+            secondaryAreaUnit: 'hectares'
+        });
+        measureControl.addTo(map);
+        document.getElementsByClassName('leaflet-control-measure-toggle')[0]
+        .innerHTML = '';
+        document.getElementsByClassName('leaflet-control-measure-toggle')[0]
+        .className += ' fas fa-ruler';
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+        }
+        map.createPane('pane_OSMStandard_0');
+        map.getPane('pane_OSMStandard_0').style.zIndex = 400;
+        var layer_OSMStandard_0 = L.tileLayer('http://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            pane: 'pane_OSMStandard_0',
+            opacity: 1.0,
+            attribution: '<a href="https://www.openstreetmap.org/copyright">© OpenStreetMap contributors, CC-BY-SA</a>',
+            minZoom: 1,
+            maxZoom: 28,
+            minNativeZoom: 0,
+            maxNativeZoom: 19
+        });
+        layer_OSMStandard_0;
+        map.addLayer(layer_OSMStandard_0);
+        function pop_ChinaProvince_1(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Name'] !== null ? autolinker.link(feature.properties['Name'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Shape_Leng'] !== null ? autolinker.link(feature.properties['Shape_Leng'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Shape_Area'] !== null ? autolinker.link(feature.properties['Shape_Area'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Code'] !== null ? autolinker.link(feature.properties['Code'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['univer211'] !== null ? autolinker.link(feature.properties['univer211'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['UniveIndex'] !== null ? autolinker.link(feature.properties['UniveIndex'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_ChinaProvince_1_0() {
+            return {
+                pane: 'pane_ChinaProvince_1',
+                opacity: 1,
+                color: 'rgba(217,217,217,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(152,125,183,0.0)',
+                interactive: false,
+            }
+        }
+        map.createPane('pane_ChinaProvince_1');
+        map.getPane('pane_ChinaProvince_1').style.zIndex = 401;
+        map.getPane('pane_ChinaProvince_1').style['mix-blend-mode'] = 'normal';
+        var layer_ChinaProvince_1 = new L.geoJson(json_ChinaProvince_1, {
+            attribution: '',
+            interactive: false,
+            dataVar: 'json_ChinaProvince_1',
+            layerName: 'layer_ChinaProvince_1',
+            pane: 'pane_ChinaProvince_1',
+            onEachFeature: pop_ChinaProvince_1,
+            style: style_ChinaProvince_1_0,
+        });
+        bounds_group.addLayer(layer_ChinaProvince_1);
+        map.addLayer(layer_ChinaProvince_1);
+        function pop_CHINA_boundary_2(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['FID'] !== null ? autolinker.link(feature.properties['FID'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_CHINA_boundary_2_0() {
+            return {
+                pane: 'pane_CHINA_boundary_2',
+                opacity: 1,
+                color: 'rgba(128,128,128,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(164,113,88,0.0)',
+                interactive: false,
+            }
+        }
+        map.createPane('pane_CHINA_boundary_2');
+        map.getPane('pane_CHINA_boundary_2').style.zIndex = 402;
+        map.getPane('pane_CHINA_boundary_2').style['mix-blend-mode'] = 'normal';
+        var layer_CHINA_boundary_2 = new L.geoJson(json_CHINA_boundary_2, {
+            attribution: '',
+            interactive: false,
+            dataVar: 'json_CHINA_boundary_2',
+            layerName: 'layer_CHINA_boundary_2',
+            pane: 'pane_CHINA_boundary_2',
+            onEachFeature: pop_CHINA_boundary_2,
+            style: style_CHINA_boundary_2_0,
+        });
+        bounds_group.addLayer(layer_CHINA_boundary_2);
+        map.addLayer(layer_CHINA_boundary_2);
+        function pop_China_landscapes_3(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">Code</th>\
+                        <td>' + (feature.properties['Code'] !== null ? autolinker.link(feature.properties['Code'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Province_C</th>\
+                        <td>' + (feature.properties['Province_C'] !== null ? autolinker.link(feature.properties['Province_C'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Province_E</th>\
+                        <td>' + (feature.properties['Province_E'] !== null ? autolinker.link(feature.properties['Province_E'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Province_K</th>\
+                        <td>' + (feature.properties['Province_K'] !== null ? autolinker.link(feature.properties['Province_K'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Name (CN)</th>\
+                        <td>' + (feature.properties['Name (CN)'] !== null ? autolinker.link(feature.properties['Name (CN)'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Name (EN)</th>\
+                        <td>' + (feature.properties['Name (EN)'] !== null ? autolinker.link(feature.properties['Name (EN)'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Name (KR)</th>\
+                        <td>' + (feature.properties['Name (KR)'] !== null ? autolinker.link(feature.properties['Name (KR)'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Landform_c</th>\
+                        <td>' + (feature.properties['Landform_c'] !== null ? autolinker.link(feature.properties['Landform_c'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">descriptio</th>\
+                        <td>' + (feature.properties['descriptio'] !== null ? autolinker.link(feature.properties['descriptio'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_China_landscapes_3_0(feature) {
+            switch(String(feature.properties['Landform_c'])) {
+                case 'Volcanic landforms':
+                    return {
+                pane: 'pane_China_landscapes_3',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,0,0,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Mountains':
+                    return {
+                pane: 'pane_China_landscapes_3',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(0,128,0,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Rivers and lakes':
+                    return {
+                pane: 'pane_China_landscapes_3',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(0,192,255,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Gorges':
+                    return {
+                pane: 'pane_China_landscapes_3',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(127,127,127,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Arid and aeolian landforms':
+                    return {
+                pane: 'pane_China_landscapes_3',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,192,0,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Danxia landforms':
+                    return {
+                pane: 'pane_China_landscapes_3',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(192,0,255,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Karst landforms':
+                    return {
+                pane: 'pane_China_landscapes_3',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(82,221,74,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Coastal landforms':
+                    return {
+                pane: 'pane_China_landscapes_3',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(0,0,255,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Others':
+                    return {
+                pane: 'pane_China_landscapes_3',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,192,192,1.0)',
+                interactive: true,
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_China_landscapes_3');
+        map.getPane('pane_China_landscapes_3').style.zIndex = 403;
+        map.getPane('pane_China_landscapes_3').style['mix-blend-mode'] = 'normal';
+        var layer_China_landscapes_3 = new L.geoJson(json_China_landscapes_3, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_China_landscapes_3',
+            layerName: 'layer_China_landscapes_3',
+            pane: 'pane_China_landscapes_3',
+            onEachFeature: pop_China_landscapes_3,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_China_landscapes_3_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_China_landscapes_3);
+        map.addLayer(layer_China_landscapes_3);
+        var osmGeocoder = new L.Control.Geocoder({
+            collapsed: true,
+            position: 'topleft',
+            text: 'Search',
+            title: 'Testing'
+        }).addTo(map);
+        document.getElementsByClassName('leaflet-control-geocoder-icon')[0]
+        .className += ' fa fa-search';
+        document.getElementsByClassName('leaflet-control-geocoder-icon')[0]
+        .title += 'Search for a place';
+        var baseMaps = {};
+        L.control.layers(baseMaps,{'China_landscapes<br /><table><tr><td style="text-align: center;"><img src="legend/China_landscapes_3_Volcaniclandforms0.png" /></td><td>Volcanic landforms</td></tr><tr><td style="text-align: center;"><img src="legend/China_landscapes_3_Mountains1.png" /></td><td>Mountains</td></tr><tr><td style="text-align: center;"><img src="legend/China_landscapes_3_Riversandlakes2.png" /></td><td>Rivers and lakes</td></tr><tr><td style="text-align: center;"><img src="legend/China_landscapes_3_Gorges3.png" /></td><td>Gorges</td></tr><tr><td style="text-align: center;"><img src="legend/China_landscapes_3_Aridandaeolianlandforms4.png" /></td><td>Arid and aeolian landforms</td></tr><tr><td style="text-align: center;"><img src="legend/China_landscapes_3_Danxialandforms5.png" /></td><td>Danxia landforms</td></tr><tr><td style="text-align: center;"><img src="legend/China_landscapes_3_Karstlandforms6.png" /></td><td>Karst landforms</td></tr><tr><td style="text-align: center;"><img src="legend/China_landscapes_3_Coastallandforms7.png" /></td><td>Coastal landforms</td></tr><tr><td style="text-align: center;"><img src="legend/China_landscapes_3_Others8.png" /></td><td>Others</td></tr></table>': layer_China_landscapes_3,'<img src="legend/CHINA_boundary_2.png" /> CHINA_boundary': layer_CHINA_boundary_2,'<img src="legend/ChinaProvince_1.png" /> ChinaProvince': layer_ChinaProvince_1,"OSM Standard": layer_OSMStandard_0,},{collapsed:false}).addTo(map);
+        setBounds();
+        var i = 0;
+        layer_China_landscapes_3.eachLayer(function(layer) {
+            var context = {
+                feature: layer.feature,
+                variables: {}
+            };
+            layer.bindTooltip((layer.feature.properties['Code'] !== null?String('<div style="color: #000000; font-size: 10pt; font-family: \'Gulim\', sans-serif;">' + layer.feature.properties['Code']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_China_landscapes_3'});
+            labels.push(layer);
+            totalMarkers += 1;
+              layer.added = true;
+              addLabel(layer, i);
+              i++;
+        });
+        map.addControl(new L.Control.Search({
+            layer: layer_China_landscapes_3,
+            initial: false,
+            hideMarkerOnCollapse: true,
+            propertyName: 'Name (EN)'}));
+        document.getElementsByClassName('search-button')[0].className +=
+         ' fa fa-binoculars';
+        resetLabels([layer_China_landscapes_3]);
+        map.on("zoomend", function(){
+            resetLabels([layer_China_landscapes_3]);
+        });
+        map.on("layeradd", function(){
+            resetLabels([layer_China_landscapes_3]);
+        });
+        map.on("layerremove", function(){
+            resetLabels([layer_China_landscapes_3]);
+        });
+        </script>
+    </body>
+</html>
